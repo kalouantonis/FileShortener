@@ -13,6 +13,7 @@ Shorten file names and remove whitespace, dots and the like
 3. Add proper testing with temporary files, rather than storing .mp4 and .mkv files and then renaming them after a run. 
 4. Use quickcheck to test pure functions
 5. Add checking passed arguments (getArgs) and display help if necessary
+6. Add arguments for format style. Specifically the shortened length.
 
 ## Licence (BSD 3-Clause)
 
