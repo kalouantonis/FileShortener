@@ -7,7 +7,7 @@ Shorten file names and remove whitespace, dots and the like
 1. Recursively walk file tree
 2. Handle more special case characters ($#@!.-)
 
-## Licence - BSD
+## Licence (BSD 3-Clause)
 
 Copyright (c) 2015 Antonis Kalou, All rights reserved.
 
