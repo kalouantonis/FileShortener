@@ -3,11 +3,16 @@ File Shortener
 
 Shorten file names and remove whitespace, dots and the like
 
+## Usage
+1. Compile with `ghc Shortener.hs` (assuming you have GHC installed)
+2. Run with `Shortener /path/with/files`
+
 ##TODO
 1. Recursively walk file tree
 2. Handle more special case characters ($#@!.-)
 3. Add proper testing with temporary files, rather than storing .mp4 and .mkv files and then renaming them after a run. 
 4. Use quickcheck to test pure functions
+5. Add checking passed arguments (getArgs) and display help if necessary
 
 ## Licence (BSD 3-Clause)
 
