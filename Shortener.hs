@@ -46,7 +46,7 @@ moveFile :: FilePath -> IO ()
 moveFile path = do 
     let newPath = formatFile path 
 
-    putStrLn (path ++ " ==> " ++ newPath)
+    putStrLn (path ++ "\t==>\t" ++ newPath)
     renameFile path newPath
 
 main :: IO ()
