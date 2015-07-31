@@ -3,6 +3,7 @@ import System.Directory (getDirectoryContents, setCurrentDirectory, renameFile)
 import System.Environment (getArgs)
 import System.FilePath (splitExtension)
 import Data.Char -- String helpers
+import Data.List 
 
 fileExtension :: FilePath -> String
 fileExtension = snd . splitExtension
