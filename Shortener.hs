@@ -1,3 +1,4 @@
+import System.Console.GetOpt -- Command line option parsing
 import System.Directory (getDirectoryContents, setCurrentDirectory, renameFile)
 import System.Environment (getArgs)
 import System.FilePath (splitExtension)
@@ -37,10 +38,10 @@ shortFileName = shorten . replace '.' '_' . strip . lowercase
 formatFile :: FilePath -> String
 formatFile path = shortFileName path ++ fileExtension path
 
--- Returns true if the current file path is not allowed to be renamed
-isRenamable :: FilePath -> Bool
+-- Returns true if the current file is a hidden file
+isHidden :: FilePath -> Bool
 -- Exclude invalid . and .. path renaming
-isRenamable path =  (path /= ".") && (path /= "..")
+isHidden path = "." `isPrefixOf` path
 
 moveFile :: FilePath -> IO ()
 moveFile path = do
@@ -59,6 +60,6 @@ main = do
     setCurrentDirectory $ head args
     dirContents <- getDirectoryContents "."
 
-    let filesToRename = filter isRenamable dirContents
+    let filesToRename = filter (not . isHidden) dirContents
 
     mapM_ moveFile filesToRename
