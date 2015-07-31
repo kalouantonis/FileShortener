@@ -31,7 +31,7 @@ replace from to (x:xs)  = if x == from
 -- underscores and shortened to 4 characters.
 shortFileName :: FilePath -> String
 -- FIXME: Replace more than just .
-shortFileName = shorten . replace '.' '_' . strip . lowercase
+shortFileName = shorten . strip . replace '.' ' ' . lowercase
 
 -- Perform file reformating, keeping the file extension
 formatFile :: FilePath -> String
