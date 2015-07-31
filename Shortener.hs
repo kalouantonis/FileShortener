@@ -1,5 +1,5 @@
 import System.Console.GetOpt -- Command line option parsing
-import System.Directory (getDirectoryContents, setCurrentDirectory, renameFile)
+import System.Directory (getDirectoryContents, setCurrentDirectory, renameFile, doesFileExist)
 import System.Environment (getArgs)
 import System.FilePath (takeExtension)
 import System.Exit (exitWith, ExitCode(..))
@@ -44,10 +44,16 @@ isHidden path = "." `isPrefixOf` path
 
 moveFile :: FilePath -> IO ()
 moveFile path = do
-    let newPath = formatFile path
+    doesExist <- doesFileExist path
 
-    putStrLn (path ++ "\t==>\t" ++ newPath)
-    renameFile path newPath
+    if doesExist
+        then do 
+            let newPath = formatFile path
+
+            putStrLn (path ++ "\t==>\t" ++ newPath)
+            renameFile path newPath
+        else do
+            return ()
 
 checkArgs :: [a] -> IO ()
 checkArgs [] = do
