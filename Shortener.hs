@@ -2,6 +2,7 @@ import System.Console.GetOpt -- Command line option parsing
 import System.Directory (getDirectoryContents, setCurrentDirectory, renameFile)
 import System.Environment (getArgs)
 import System.FilePath (takeExtension)
+import System.Exit (exitWith, ExitCode(..))
 import Data.Char -- String helpers
 import Data.List 
 
@@ -48,10 +49,19 @@ moveFile path = do
     putStrLn (path ++ "\t==>\t" ++ newPath)
     renameFile path newPath
 
+checkArgs :: [a] -> IO ()
+checkArgs [] = do
+    putStrLn "Usage: shortener PATH"
+    exitWith $ ExitFailure 1
+-- Just a stub, does nothing
+checkArgs _ = return ()
+
 main :: IO ()
 main = do
     -- FIXME: Handle lack of CMD arguments
     args <- getArgs
+
+    checkArgs args
 
     -- Switch so that we perform all operations in this dir, without having to
     -- prepend the path
