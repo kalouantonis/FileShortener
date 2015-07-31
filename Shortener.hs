@@ -1,12 +1,9 @@
 import System.Console.GetOpt -- Command line option parsing
 import System.Directory (getDirectoryContents, setCurrentDirectory, renameFile)
 import System.Environment (getArgs)
-import System.FilePath (splitExtension)
+import System.FilePath (takeExtension)
 import Data.Char -- String helpers
 import Data.List 
-
-fileExtension :: FilePath -> String
-fileExtension = snd . splitExtension
 
 -- Covert string to lowercase
 lowercase :: String -> String
@@ -37,7 +34,7 @@ shortFileName = shorten . replace '.' '_' . strip . lowercase
 
 -- Perform file reformating, keeping the file extension
 formatFile :: FilePath -> String
-formatFile path = shortFileName path ++ fileExtension path
+formatFile path = shortFileName path ++ takeExtension path
 
 -- Returns true if the current file is a hidden file
 isHidden :: FilePath -> Bool
