@@ -1,10 +1,15 @@
-import System.Console.GetOpt -- Command line option parsing
 import System.Directory (getDirectoryContents, setCurrentDirectory, renameFile, doesFileExist)
 import System.Environment (getArgs)
 import System.FilePath (takeExtension)
 import System.Exit (exitWith, ExitCode(..))
 import Data.Char -- String helpers
 import Data.List 
+-- Stuff for recursive directory operations
+import Data.Traversable (traverse)
+import System.Directory.Tree (
+    AnchoredDirTree(..), DirTree(..),
+    filterDir, readDirectoryWith
+    )
 
 -- Covert string to lowercase
 lowercase :: String -> String
@@ -55,9 +60,17 @@ moveFile path = do
         else do
             return ()
 
+listFiles :: FilePath -> IO (DirTree FilePath)
+listFiles path = do
+        _:/tree <- readDirectoryWith return path 
+        return tree
+
+filterHiddenFiles :: (DirTree FilePath -> Bool) -> IO (DirTree FilePath) -> IO (DirTree FilePath)
+filterHiddenFiles = undefined
+
 checkArgs :: [a] -> IO ()
 checkArgs [] = do
-    putStrLn "Usage: shortener PATH"
+    putStrLn "Usage: shortener PATH [OPTIONS]"
     exitWith $ ExitFailure 1
 -- Just a stub, does nothing
 checkArgs _ = return ()
