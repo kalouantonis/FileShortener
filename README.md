@@ -9,9 +9,8 @@ Shorten file names and remove whitespace, dots and the like
 2. directory-tree
 
 ## Usage
-1. Install directory-tree with `cabal install directory-tree`
-2. Compile with `make`. The build files along with the executable will be in the `build` directory.
-3. Run with `shortener /path/with/files`
+1. Compile with `make`. The build files along with the executable will be in the `build` directory.
+2. Run with `shortener /path/with/files`
 
 ##TODO
 1. Recursively walk file tree
