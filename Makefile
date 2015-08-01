@@ -12,8 +12,14 @@ OUTBIN=shortener
 # The main haskell file
 MAIN_SRC=Shortener.hs
 
+
 # Compile all
-all: install_deps create_output_dir
+all: compile
+
+# Compile and install dependencies
+install: deps compile
+
+compile: create_output_dir
 	${CC} --make -o ${OUTDIR}/${OUTBIN} -outputdir ${OUTDIR} ${MAIN_SRC}
 
 # Remove all build files
@@ -24,5 +30,5 @@ clean:
 create_output_dir: 
 	-mkdir ${OUTDIR}
 
-install_deps:
+deps:
 	${DEP_INSTALL_CMD} ${DEPS}
