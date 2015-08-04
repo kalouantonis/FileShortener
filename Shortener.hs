@@ -4,6 +4,7 @@ import System.FilePath (takeExtension, takeFileName, splitPath)
 import System.Exit (exitWith, ExitCode(..))
 import Data.Char -- String helpers
 import Data.List 
+import Control.Monad (when)
 import System.Directory.Tree (
     AnchoredDirTree(..), DirTree(..),
     filterDir, readDirectoryWith
@@ -45,14 +46,11 @@ moveFile :: FilePath -> IO ()
 moveFile path = do
     doesExist <- doesFileExist path
 
-    if doesExist
-        then do 
-            let newPath = formatFile path
+    when doesExist $ do
+        let newPath = formatFile path
 
-            putStrLn (path ++ "\t==>\t" ++ newPath)
-            renameFile path newPath
-        else do
-            return ()
+        putStrLn (path ++ "\t==>\t" ++ newPath)
+        renameFile path newPath
 
 
 preorder :: DirTree a -> [a] 
