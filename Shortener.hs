@@ -19,9 +19,7 @@ shorten = take 4
 
 -- Remove all spaces (' ') from a string
 strip :: String -> String
-strip [] = []
-strip (' ':a) = strip a
-strip (a:b) = a : strip b
+strip = filter (/= ' ')
 
 -- Replace all occurances of one char with another inside a string
 replace :: Char -> Char -> String -> String
