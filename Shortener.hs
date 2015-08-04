@@ -1,3 +1,5 @@
+{-# LANGUAGE LambdaCase #-}
+
 import System.Directory (getDirectoryContents, setCurrentDirectory, renameFile, doesFileExist)
 import System.Environment (getArgs)
 import System.FilePath (takeExtension, takeFileName, splitPath)
@@ -66,18 +68,11 @@ listFiles path = do
         pred (File ('.':_) _)   = False 
         pred _                  = True
 
-checkArgs :: [a] -> IO ()
-checkArgs [] = do
+showUsageAndQuit :: IO ()
+showUsageAndQuit = do
     putStrLn "Usage: shortener PATH [OPTIONS]"
     exitWith $ ExitFailure 1
--- Just a stub, does nothing
-checkArgs _ = return ()
 
 main :: IO ()
-main = do
-    -- FIXME: Handle lack of CMD arguments
-    args <- getArgs
-
-    checkArgs args
-
-    listFiles (head args) >>= mapM_ moveFile
+main = getArgs >>= \case path:_ -> listFiles path >>= mapM_ moveFile;
+                       _     -> showUsageAndQuit
