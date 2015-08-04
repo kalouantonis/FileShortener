@@ -89,5 +89,4 @@ main = do
 
     checkArgs args
 
-    dirContents <- listFiles "."
-    mapM_ moveFile dirContents
+    listFiles "." >>= mapM_ moveFile
