@@ -17,7 +17,7 @@ MAIN_SRC=Shortener.hs
 all: compile
 
 # Compile and install dependencies
-install: deps compile
+install: deps compile move_to_usr
 
 compile: create_output_dir
 	${CC} --make -o ${OUTDIR}/${OUTBIN} -outputdir ${OUTDIR} ${MAIN_SRC}
@@ -32,3 +32,6 @@ create_output_dir:
 
 deps:
 	${DEP_INSTALL_CMD} ${DEPS}
+
+move_to_usr:
+	cp ${OUTDIR}/${OUTBIN} /usr/bin/${OUTBIN}
