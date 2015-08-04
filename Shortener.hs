@@ -66,12 +66,27 @@ listFiles path = do
         pred (File ('.':_) _)   = False 
         pred _                  = True
 
+promptContinue :: IO Bool
+promptContinue = do 
+    putStrLn "Are you sure you want to continue? [Yes/No]"
+    yn <- getLine
+
+    return $ lowercase yn == "yes"
+
+quit :: IO ()
+quit = exitWith $ ExitFailure 1
+
 showUsageAndQuit :: IO ()
 showUsageAndQuit = do
     putStrLn "Usage: shortener PATH [OPTIONS]"
-    exitWith $ ExitFailure 1
+    quit
 
 main :: IO ()
 main = getArgs >>= \args -> case args of 
-                        path:_ -> listFiles path >>= mapM_ moveFile;
+                        path:_ -> do
+                            continue <- promptContinue
+
+                            if continue
+                                then listFiles path >>= mapM_ moveFile;
+                                else quit
                         _     -> showUsageAndQuit
