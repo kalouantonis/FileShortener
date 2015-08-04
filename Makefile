@@ -1,7 +1,7 @@
 # The haskell compiler in this case
 CC=ghc
 
-DEP_INSTALL_CMD="cabal install"
+DEP_INSTALL_CMD=cabal install
 DEPS="directory-tree"
 
 # Directory to output all intermediate files and the final binary to
