@@ -13,12 +13,11 @@ Shorten file names and remove whitespace, dots and the like
 2. Run with `shortener /path/with/files`
 
 ##TODO
-1. Recursively walk file tree
-2. Handle more special case characters ($#@!.-)
-3. Add proper testing with temporary files, rather than storing .mp4 and .mkv files and then renaming them after a run. 
-4. Use quickcheck to test pure functions
-5. Add checking passed arguments (getArgs) and display help if necessary
-6. Add arguments for format style. Specifically the shortened length.
+1. Handle more special case characters ($#@!.-)
+2. Add proper testing with temporary files, rather than storing .mp4 and .mkv files and then renaming them after a run. 
+3. Use quickcheck to test pure functions
+4. Add checking passed arguments (getArgs) and display help if necessary
+5. Add arguments for format style. Specifically the shortened length.
 
 ## Licence (BSD 3-Clause)
 
