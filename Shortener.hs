@@ -75,4 +75,4 @@ showUsageAndQuit = do
 
 main :: IO ()
 main = getArgs >>= \case path:_ -> listFiles path >>= mapM_ moveFile;
-                       _     -> showUsageAndQuit
+                         _     -> showUsageAndQuit
