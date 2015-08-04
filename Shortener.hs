@@ -23,10 +23,7 @@ strip = filter (/= ' ')
 
 -- Replace all occurances of one char with another inside a string
 replace :: Char -> Char -> String -> String
-replace _    _  []      = []
-replace from to (x:xs)  = if x == from
-                          then to : replace from to xs
-                          else x : replace from to xs
+replace from to = map (\c -> if c == from then to else c)
 
 -- Modify the file name to be lowercase, with no whitespace, all .'s replaced with
 -- underscores and shortened to 4 characters.
