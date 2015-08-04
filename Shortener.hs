@@ -40,7 +40,7 @@ shortFileName = shorten . strip . replace '.' ' ' . lowercase
 
 -- Perform file reformating, keeping the file extension
 formatFile :: FilePath -> String
-formatFile path = shortFileName path ++ takeExtension path
+formatFile path =  shortFileName path ++ takeExtension path
 
 -- Returns true if the current file is a hidden file
 isHidden :: FilePath -> Bool
@@ -60,13 +60,19 @@ moveFile path = do
         else do
             return ()
 
-listFiles :: FilePath -> IO (DirTree FilePath)
-listFiles path = do
-        _:/tree <- readDirectoryWith return path 
-        return tree
 
-filterHiddenFiles :: (DirTree FilePath -> Bool) -> IO (DirTree FilePath) -> IO (DirTree FilePath)
-filterHiddenFiles = undefined
+preorder :: DirTree a -> [a] 
+preorder (Failed name err)      = []
+preorder (Dir name contents)    = concat (map preorder contents)
+preorder (File name x)          = [x]
+
+listFiles :: FilePath -> IO [FilePath]
+listFiles path = do 
+    _:/tree <- readDirectoryWith return "."
+    return . preorder $ filterDir pred tree 
+  where pred (Dir ('.':_) _)    = False 
+        pred (File ('.':_) _)   = False 
+        pred _                  = True
 
 checkArgs :: [a] -> IO ()
 checkArgs [] = do
@@ -81,12 +87,5 @@ main = do
     args <- getArgs
 
     checkArgs args
-
-    -- Switch so that we perform all operations in this dir, without having to
-    -- prepend the path
-    setCurrentDirectory $ head args
-    dirContents <- getDirectoryContents "."
-
-    let filesToRename = filter (not . isHidden) dirContents
-
-    mapM_ moveFile filesToRename
+    
+    mapM_ moveFile $ listFiles "."
