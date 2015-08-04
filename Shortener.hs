@@ -2,6 +2,7 @@ import System.Directory (getDirectoryContents, setCurrentDirectory, renameFile, 
 import System.Environment (getArgs)
 import System.FilePath (takeExtension, takeFileName, splitPath)
 import System.Exit (exitWith, ExitCode(..))
+import System.IO (hFlush, stdout)
 import Data.Char -- String helpers
 import Data.List 
 import Control.Monad (when)
@@ -68,7 +69,9 @@ listFiles path = do
 
 promptContinue :: IO Bool
 promptContinue = do 
-    putStrLn "Are you sure you want to continue? [Yes/No]"
+    putStr "Are you sure you want to continue? [Yes/No] "
+    -- Flush output so that the user actually sees something
+    hFlush stdout
     yn <- getLine
 
     return $ lowercase yn == "yes"
