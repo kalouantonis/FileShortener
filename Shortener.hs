@@ -33,8 +33,8 @@ shortFileName :: FilePath -> String
 shortFileName = shorten . strip . replace '.' ' ' . lowercase . takeFileName
 
 -- Perform file reformating, keeping the file extension
-formatFile :: FilePath -> String
-formatFile path = dirPath ++ shortFileName path ++ takeExtension path
+formatFileName :: FilePath -> String
+formatFileName path = dirPath ++ shortFileName path ++ takeExtension path
     where dirPath = concat $ init (splitPath path)
 
 -- Returns true if the current file is a hidden file
@@ -47,7 +47,7 @@ moveFile path = do
     doesExist <- doesFileExist path
 
     when doesExist $ do
-        let newPath = formatFile path
+        let newPath = formatFileName path
 
         putStrLn (path ++ "\t==>\t" ++ newPath)
         renameFile path newPath
