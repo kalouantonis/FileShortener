@@ -4,8 +4,6 @@ import System.FilePath (takeExtension, takeFileName, splitPath)
 import System.Exit (exitWith, ExitCode(..))
 import Data.Char -- String helpers
 import Data.List 
--- Stuff for recursive directory operations
-import Data.Traversable (traverse)
 import System.Directory.Tree (
     AnchoredDirTree(..), DirTree(..),
     filterDir, readDirectoryWith
