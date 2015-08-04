@@ -1,6 +1,6 @@
 import System.Directory (getDirectoryContents, setCurrentDirectory, renameFile, doesFileExist)
 import System.Environment (getArgs)
-import System.FilePath (takeExtension)
+import System.FilePath (takeExtension, takeFileName, splitPath)
 import System.Exit (exitWith, ExitCode(..))
 import Data.Char -- String helpers
 import Data.List 
@@ -36,11 +36,12 @@ replace from to (x:xs)  = if x == from
 -- underscores and shortened to 4 characters.
 shortFileName :: FilePath -> String
 -- FIXME: Replace more than just .
-shortFileName = shorten . strip . replace '.' ' ' . lowercase
+shortFileName = shorten . strip . replace '.' ' ' . lowercase . takeFileName
 
 -- Perform file reformating, keeping the file extension
 formatFile :: FilePath -> String
-formatFile path =  shortFileName path ++ takeExtension path
+formatFile path = dirPath ++ shortFileName path ++ takeExtension path
+    where dirPath = concat $ init (splitPath path)
 
 -- Returns true if the current file is a hidden file
 isHidden :: FilePath -> Bool
@@ -87,5 +88,6 @@ main = do
     args <- getArgs
 
     checkArgs args
-    
-    mapM_ moveFile $ listFiles "."
+
+    dirContents <- listFiles "."
+    mapM_ moveFile dirContents
