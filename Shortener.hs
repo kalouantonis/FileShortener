@@ -80,4 +80,4 @@ main = do
 
     checkArgs args
 
-    listFiles "." >>= mapM_ moveFile
+    listFiles (head args) >>= mapM_ moveFile
