@@ -1,5 +1,3 @@
-{-# LANGUAGE LambdaCase #-}
-
 import System.Directory (getDirectoryContents, setCurrentDirectory, renameFile, doesFileExist)
 import System.Environment (getArgs)
 import System.FilePath (takeExtension, takeFileName, splitPath)
@@ -74,5 +72,6 @@ showUsageAndQuit = do
     exitWith $ ExitFailure 1
 
 main :: IO ()
-main = getArgs >>= \case path:_ -> listFiles path >>= mapM_ moveFile;
-                         _     -> showUsageAndQuit
+main = getArgs >>= \args -> case args of 
+                        path:_ -> listFiles path >>= mapM_ moveFile;
+                        _     -> showUsageAndQuit
